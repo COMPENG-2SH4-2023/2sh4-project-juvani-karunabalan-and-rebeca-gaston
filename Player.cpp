@@ -28,7 +28,7 @@ void Player::updatePlayerDir()
 {
     //how to get input?
     char input = mainGameMechsRef->getInput();
-    cout << "Input:" << input << endl;
+    //cout << "Input:" << input << endl;
     switch(input)
     {
         case 'w':  // UP keypress 
