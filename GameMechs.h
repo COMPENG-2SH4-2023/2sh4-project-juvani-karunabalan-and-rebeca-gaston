@@ -21,6 +21,8 @@ class GameMechs
     private:
         char input;
         bool exitFlag;
+        bool loseFlag; //left out, was in UML
+        int score;  //left out, was in UML
         
         int boardSizeX;
         int boardSizeY;
@@ -28,16 +30,23 @@ class GameMechs
     public:
         GameMechs();
         GameMechs(int boardX, int boardY);
-        
+        //~GameMechs();
+
         bool getExitFlagStatus();
-        void setExitTrue();
+        bool getLoseFlagStatus(); //implemented
 
         char getInput();
+        int getBoardSizeX();
+        int getBoardSizeY();
+        int getScore();
+
+        void setExitTrue();
+        void setLoseFlag(); //added
+
         void setInput(char this_input);
         void clearInput();
 
-        int getBoardSizeX();
-        int getBoardSizeY();
+        void incrementScore();
       
 
 };
