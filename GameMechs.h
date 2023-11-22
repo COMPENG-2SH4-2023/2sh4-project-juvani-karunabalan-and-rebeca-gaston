@@ -30,7 +30,7 @@ class GameMechs
     public:
         GameMechs();
         GameMechs(int boardX, int boardY);
-        //~GameMechs();
+        ~GameMechs();
 
         bool getExitFlagStatus();
         bool getLoseFlagStatus(); //implemented
