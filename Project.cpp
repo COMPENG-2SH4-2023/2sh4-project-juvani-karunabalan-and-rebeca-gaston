@@ -82,7 +82,7 @@ void DrawScreen(void)
             {
                 MacUILib_printf("%c", board.getSymbol());
             }
-            else if (i == tempPos.x && j == tempPos.y)
+            else if (j == tempPos.x && i == tempPos.y)
             {
                 MacUILib_printf("%c", tempPos.getSymbol());
             }
