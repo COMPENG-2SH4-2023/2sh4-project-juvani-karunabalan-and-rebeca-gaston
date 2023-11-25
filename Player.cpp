@@ -7,7 +7,7 @@ Player::Player(GameMechs* thisGMRef)
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
 
-    playerPos.setObjPos(5,5,'*');
+    playerPos.setObjPos(5,5,'*'); //sets inital position
 
     // more actions to be included
 }
@@ -26,9 +26,9 @@ void Player::getPlayerPos(objPos &returnPos)
 
 void Player::updatePlayerDir()
 {
-    //how to get input?
+    //Get's keyboard input
     char input = mainGameMechsRef->getInput();
-    //cout << "Input:" << input << endl;
+    // PPA3 input processing logic
     switch(input)
     {
         case 'w':  // UP keypress 
@@ -63,14 +63,15 @@ void Player::updatePlayerDir()
             break;
 
     }
-    // PPA3 input processing logic        
+            
 }
 
 void Player::movePlayer()
 {
-    // PPA3 Finite State Machine logic
+    //collects the boundary values of the game board
     int xbound = (mainGameMechsRef->getBoardSizeX()-2);
     int ybound = (mainGameMechsRef->getBoardSizeY()-2);
+    // PPA3 Finite State Machine logic
     switch (myDir)
     {
         case UP:
