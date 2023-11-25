@@ -3,6 +3,7 @@
 #include "objPos.h"
 #include "Player.h"
 #include "GameMechs.h"
+#include "Food.h"
 
 
 using namespace std;
@@ -54,6 +55,14 @@ void Initialize(void)
     //pass the address myGM into the player so the player can see the same
     //game mechanism class instance (board size 26 and 13) on the heap
 
+
+    //think about when to generate the new food
+    
+    //think about whther you wamt to set up a debug key
+    //to call the food generation routine for verification
+    
+    //remember, generateFood() requires player reference.
+    //You will need to provide it AFTER player object is instantiated
     
 
 }
@@ -141,7 +150,7 @@ void CleanUp(void)
     MacUILib_clearScreen();  
 
     if (myGM->getLoseFlagStatus()){
-        MacUILib_printf("You lost womp womp :(");
+        MacUILib_printf("You lost womp womp (T-T)\n");
     }
 
     else{

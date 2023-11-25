@@ -1,7 +1,7 @@
 #ifndef GAMEMECHS_H
 #define GAMEMECHS_H
 
-#include <cstdlib>
+#include <cstdlib>  //provides srand() and rand()
 #include <time.h>
 
 #include "objPos.h"
