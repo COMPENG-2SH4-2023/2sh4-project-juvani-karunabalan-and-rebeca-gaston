@@ -13,6 +13,8 @@ using namespace std;
 bool exitFlag;
 Player* myPlayer;
 GameMechs* myGM;
+
+Food* myFood;
 objPos board;
 objPos space;
 
@@ -51,12 +53,17 @@ void Initialize(void)
 
     myGM = new GameMechs(20,10);
     myPlayer = new Player(myGM);
+    myFood = new Food(myGM);
 
     //pass the address myGM into the player so the player can see the same
     //game mechanism class instance (board size 26 and 13) on the heap
 
 
     //think about when to generate the new food
+
+    objPos playerPosCheck; //create an instance for temporary pos
+    myPlayer->getPlayerPos(playerPosCheck); //get the player pos
+    myFood->generateFood(playerPosCheck);
     
     //think about whther you wamt to set up a debug key
     //to call the food generation routine for verification
@@ -74,6 +81,10 @@ void GetInput(void)
 
 void RunLogic(void)
 {
+
+    objPos playerPosCheck; //create an instance for temporary pos
+    myPlayer->getPlayerPos(playerPosCheck); //get the player pos
+
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
 
@@ -89,6 +100,11 @@ void RunLogic(void)
         myGM->incrementScore();
     } 
 
+    else if (myGM->getInput() == 'f'){   // setting generate food key (debug)
+
+        myFood->generateFood(playerPosCheck);
+    } 
+
 
     myGM->clearInput();
 
@@ -100,6 +116,10 @@ void DrawScreen(void)
     MacUILib_clearScreen(); 
     objPos tempPos; //create an instance for temporary pos
     myPlayer->getPlayerPos(tempPos); //get the player pos
+
+    objPos tempFood;
+    myFood->getFoodPos(tempFood);
+
     int i,j;
 
     //drawing the border #####, how to implement with board position functions in objPos class?
@@ -117,6 +137,13 @@ void DrawScreen(void)
             {
                 MacUILib_printf("%c", tempPos.getSymbol());
             }
+
+            else if (j == tempFood.x && i == tempFood.y)
+            {
+                MacUILib_printf("%c", tempFood.symbol);
+
+            }
+
             else
             {
                 MacUILib_printf("%c",' ');
@@ -134,6 +161,7 @@ void DrawScreen(void)
                                                 tempPos.x, tempPos.y, tempPos.symbol);
 
     MacUILib_printf("Score: %d\n", myGM->getScore());
+    //MacUILib_printf("Food Coords: %d\n", );
     
     
 
@@ -159,6 +187,7 @@ void CleanUp(void)
     
     delete myGM;
     delete myPlayer;  
+    delete myFood;
   
     MacUILib_uninit();
 }
