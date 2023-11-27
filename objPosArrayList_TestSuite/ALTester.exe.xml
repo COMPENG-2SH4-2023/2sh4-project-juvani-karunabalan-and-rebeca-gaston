@@ -1,5 +1,5 @@
 <testsuites>
-	<testsuite name="AllTests" tests="11">
+	<testsuite name="AllTests" tests="14">
 		<testcase classname="AllTests" name="testConstructor"/>
 		<testcase classname="AllTests" name="testInsertHead_1Element"/>
 		<testcase classname="AllTests" name="testInsertHead_5Element"/>
@@ -11,5 +11,8 @@
 		<testcase classname="AllTests" name="testRemoveTail_5Element"/>
 		<testcase classname="AllTests" name="testInsertHead_200Element"/>
 		<testcase classname="AllTests" name="testInsertHead_205Element"/>
+		<testcase classname="AllTests" name="testRemove2Heads_1Element"/>
+		<testcase classname="AllTests" name="testRemove2Tails_1Element"/>
+		<testcase classname="AllTests" name="testInsert2HeadsRemove2Tail_Element"/>
 	</testsuite>
 </testsuites>

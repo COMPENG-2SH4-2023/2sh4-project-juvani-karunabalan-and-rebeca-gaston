@@ -50,24 +50,31 @@ void objPosArrayList::insertTail(objPos thisPos)
 
 void objPosArrayList::removeHead()
 {
-    
-    //shifts alll elements towards the head to remove a spot at the head
-    for (int i = 0; i < sizeList; i++)
+    if (sizeList > 0) //make sure theres at least 1 element in the list to remove
     {
-        aList[i].setObjPos(aList[i+1]);  //how to delete the last spot data?
+        //shifts alll elements towards the head to remove a spot at the head
+        for (int i = 0; i < sizeList; i++)
+        {
+            aList[i].setObjPos(aList[i+1]);  
+        }
+        //decremnt the size of list and delete/set last data bit to null
+        aList[sizeList-1].setObjPos(0,0,0);
+        sizeList--;
     }
-    //decremnt the size of list and delete/set last data bit to null
-    aList[sizeList-1].setObjPos(0,0,0);
-    sizeList--;
+    
     
 }
 
 void objPosArrayList::removeTail()
 {
-    //how to delet data? 
-    aList[sizeList-1].setObjPos(0,0,0);
-    //decremnt the size of list
-    sizeList--;
+    if (sizeList > 0) //make sure theres at least 1 element in the list to remove
+    {
+        //delete data 
+        aList[sizeList-1].setObjPos(0,0,0);
+        //decremnt the size of list
+        sizeList--;
+    }
+    
 }
 
 void objPosArrayList::getHeadElement(objPos &returnPos)

@@ -244,6 +244,24 @@ void testRemoveHead_1Element()
 	// The destructor will be called automatically for stack-allocated objects
 }
 
+//weird edge case
+void testRemove2Heads_1Element()
+{
+	objPos currentPos;
+	objPos samplePos{2, 5, 'a'};  
+
+	// Insert 1 sample element
+	objPosArrayList thisList;
+	thisList.insertHead(samplePos);
+
+	thisList.removeHead();
+	thisList.removeHead();
+
+	int expectedSize = 0;
+	int actualSize = thisList.getSize();
+		
+	// The destructor will be called automatically for stack-allocated objects
+}
 // Test Case 4b - removeHead from 5 Element list
 void testRemoveHead_5Element()
 {
@@ -296,8 +314,53 @@ void testRemoveTail_1Element()
 
 	// Insert 1 sample element
 	objPosArrayList thisList;
+	thisList.insertHead(samplePos);
+	thisList.insertHead(samplePos);
+
+
+	thisList.removeTail();
+	thisList.removeTail();
+
+
+	int expectedSize = 0;
+	int actualSize = thisList.getSize();
+		
+	// First check the list size is 1
+	ASSERT_EQUAL(expectedSize, actualSize);
+
+	// The destructor will be called automatically for stack-allocated objects
+}
+
+void testInsert2HeadsRemove2Tail_Element()
+{
+	objPos currentPos;
+	objPos samplePos{2, 5, 'a'};  
+
+	// Insert 1 sample element
+	objPosArrayList thisList;
 	thisList.insertTail(samplePos);
 
+	thisList.removeTail();
+
+	int expectedSize = 0;
+	int actualSize = thisList.getSize();
+		
+	// First check the list size is 1
+	ASSERT_EQUAL(expectedSize, actualSize);
+
+	// The destructor will be called automatically for stack-allocated objects
+}
+
+void testRemove2Tails_1Element()
+{
+	objPos currentPos;
+	objPos samplePos{2, 5, 'a'};  
+
+	// Insert 1 sample element
+	objPosArrayList thisList;
+	thisList.insertTail(samplePos);
+
+	thisList.removeTail();
 	thisList.removeTail();
 
 	int expectedSize = 0;
@@ -464,6 +527,10 @@ bool runAllTests(int argc, char const *argv[]) {
 	//MY CASES 
 	s.push_back(CUTE(testInsertHead_200Element));
 	s.push_back(CUTE(testInsertHead_205Element));
+
+	s.push_back(CUTE(testRemove2Heads_1Element));
+	s.push_back(CUTE(testRemove2Tails_1Element));
+	s.push_back(CUTE(testInsert2HeadsRemove2Tail_Element));
 	
 
 
