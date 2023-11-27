@@ -67,7 +67,7 @@ void objPosArrayList::removeHead()
 
 void objPosArrayList::removeTail()
 {
-    //hi
+    //hi 2
     if (sizeList > 0) //make sure theres at least 1 element in the list to remove
     {
         //delete data 
