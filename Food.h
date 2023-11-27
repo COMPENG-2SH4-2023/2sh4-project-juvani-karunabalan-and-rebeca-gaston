@@ -14,7 +14,9 @@ class Food
         Food(GameMechs* foodGM);
         ~Food();
 
-        void generateFood(objPos blockOff);
+        void generateFood(objPos blockOff);   //You need to upgrade this somehow...
+        //you need to accept player body array list element to amke sure they are all
+        //lined up with random food generation 
         void getFoodPos(objPos &returnPos);
 };
 
