@@ -54,8 +54,11 @@ void objPosArrayList::removeHead()
     //shifts alll elements towards the head to remove a spot at the head
     for (int i = 0; i < sizeList; i++)
     {
-        aList[i].setObjPos(aList[i+1]);  //how to delete the last spot data?
+        aList[i].setObjPos(aList[i+1]);  
+        //how to delete the last spot data?
     }
+    //delete the last element/ set to null 
+    aList[sizeList-1].setObjPos(0,0,0);
     //decremnt the size of list
     sizeList--;
     
@@ -64,6 +67,7 @@ void objPosArrayList::removeHead()
 void objPosArrayList::removeTail()
 {
     //how to delet data? 
+    aList[sizeList-1].setObjPos(0,0,0);
     //decremnt the size of list
     sizeList--;
 }

@@ -56,7 +56,8 @@ void objPosArrayList::removeHead()
     {
         aList[i].setObjPos(aList[i+1]);  //how to delete the last spot data?
     }
-    //decremnt the size of list
+    //decremnt the size of list and delete/set last data bit to null
+    aList[sizeList-1].setObjPos(0,0,0);
     sizeList--;
     
 }
@@ -64,6 +65,7 @@ void objPosArrayList::removeHead()
 void objPosArrayList::removeTail()
 {
     //how to delet data? 
+    aList[sizeList-1].setObjPos(0,0,0);
     //decremnt the size of list
     sizeList--;
 }
