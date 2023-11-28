@@ -26,8 +26,10 @@ Food::~Food()
     //delete foodGM;
 }
 
-void Food::generateFood(objPos blockOff)
+void Food::generateFood(objPosArrayList* objList)
 {
+    int i, flag = 1;
+    objPos Pos;
 
     //generate random x and y coord, make sure they are NOT border or blockOff pos
     int xcandidate, ycandidate;
@@ -42,8 +44,27 @@ void Food::generateFood(objPos blockOff)
     ycandidate = (rand()% (mainGMrefFood->getBoardSizeY()-2)) + 1;    //mainGMrefFood->getBoardSizeY() LEAVES SEG FAULT???
                                                             //rand num %8 giving [0,7], add 1 to get all y.coords in between border
                                                             // THEREFORE item y range is [1,...,8] and the borders are 0 and 9
- 
-    foodPos.setObjPos(xcandidate, ycandidate, 'O');
+    while (flag)
+    {
+        flag = 0;
+        for (i = 0; i < objList->getSize(); i++)
+        {
+            objList->getElement(Pos, i);
+            if (Pos.x == xcandidate && Pos.y == ycandidate)
+            {
+                xcandidate = (rand()% (mainGMrefFood->getBoardSizeX()-2)) + 1;
+                ycandidate = (rand()% (mainGMrefFood->getBoardSizeY()-2)) + 1;
+                flag = 1;
+            }
+        }
+        if (flag == 0)
+        {
+            foodPos.setObjPos(xcandidate, ycandidate, 'O');
+        }
+    }
+
+
+   /* foodPos.setObjPos(xcandidate, ycandidate, 'O');
 
     //remember, in objPos use isPosEqual() 
     
@@ -51,11 +72,10 @@ void Food::generateFood(objPos blockOff)
         xcandidate = (rand()% (mainGMrefFood->getBoardSizeX()-2)) + 1;    //foodGM->getBoardSizeX()-2
         ycandidate = (rand()% (mainGMrefFood->getBoardSizeY()-2)) + 1;    //foodGM->getBoardSizeY()
 
-        foodPos.setObjPos(xcandidate, ycandidate, 'O');
-
-    }
+        foodPos.setObjPos(xcandidate, ycandidate, 'O');*/
+ }
     
-}
+
 
 void Food::getFoodPos(objPos &returnPos)
 {

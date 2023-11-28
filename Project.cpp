@@ -14,6 +14,7 @@ using namespace std;
 bool exitFlag;
 Player* myPlayer;
 GameMechs* myGM;
+objPosArrayList* playerPosCheck;
 
 Food* myFood;
 objPos board;
@@ -53,8 +54,8 @@ void Initialize(void)
     board.setObjPos(0,0,'#');
 
     myGM = new GameMechs(20,10);
-    myPlayer = new Player(myGM);
     myFood = new Food(myGM);
+    myPlayer = new Player(myGM, myFood);
 
     //pass the address myGM into the player so the player can see the same
     //game mechanism class instance (board size 26 and 13) on the heap
@@ -62,7 +63,9 @@ void Initialize(void)
 
     //think about when to generate the new food
 
-    objPos playerPosCheck(-1,-1,'o'); //create an instance for temporary pos
+    objPos playerPos(-1,-1,'o'); //create an instance for temporary pos
+    playerPosCheck = new objPosArrayList();
+    playerPosCheck->insertHead(playerPos);
    //myPlayer->getPlayerPos(playerPosCheck); //get the player pos
     myFood->generateFood(playerPosCheck); //turn into array list argument 
     
@@ -103,7 +106,7 @@ void RunLogic(void)
 
     else if (myGM->getInput() == 'f'){   // setting generate food key (debug)
 
-        myFood->generateFood(playerPosCheck);
+       // myFood->generateFood(playerPosCheck);
     } 
 
 
@@ -209,6 +212,7 @@ void CleanUp(void)
     delete myGM;
     delete myPlayer;  
     delete myFood;
+    delete playerPosCheck;
   
     MacUILib_uninit();
 }

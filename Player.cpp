@@ -1,11 +1,13 @@
 #include "Player.h"
+#include "Food.h"
 #include <iostream>
 
 
-Player::Player(GameMechs* thisGMRef)
+Player::Player(GameMechs* thisGMRef, Food* thisFoodRef)
 {
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
+    mainFood = thisFoodRef;
 
     objPos tempPos;
     tempPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2,mainGameMechsRef->getBoardSizeY()/2,'*'); //sets inital position
@@ -78,8 +80,10 @@ void Player::updatePlayerDir()
 
 void Player::movePlayer()
 {
-    objPos currHead; //holds positon of current head
+    objPos currHead; //holds positon of current head 
+    objPos temp;     //holds temporary position of elemenst in playerPosList
     playerPosList->getHeadElement(currHead);
+    objPos foodlocation; //holds position of food location
 
     //collects the boundary values of the game board
     int xbound = (mainGameMechsRef->getBoardSizeX()-2);
@@ -124,8 +128,64 @@ void Player::movePlayer()
             break;
     }
 
-    playerPosList->insertHead(currHead);  //adds the current head
-    playerPosList->removeTail();         //removes the tail
+    mainFood->getFoodPos(foodlocation);
+    //playerPosList->insertHead(currHead); //inserts head only 
+
+    for (int i = 0; i < playerPosList->getSize() && mainGameMechsRef->getScore() != 0; i++)
+    {
+        playerPosList->getElement(temp, i);
+        if (currHead.isPosEqual(&temp))
+        {
+            mainGameMechsRef->setLoseFlag();
+            mainGameMechsRef->setExitTrue();
+        }
+        
+    }
+    if (mainGameMechsRef->getExitFlagStatus() == false)
+    {
+        playerPosList->insertHead(currHead); //inserts head only
+        if (foodlocation.x == currHead.x && foodlocation.y == currHead.y)
+        { 
+            mainFood->generateFood(playerPosList);
+            mainGameMechsRef->incrementScore();
+        }
+        else
+        {
+            playerPosList->removeTail();         //removes the tail
+        }
+    }
+
+    /*if (foodlocation.x == currHead.x && foodlocation.y == currHead.y)
+    { 
+        mainFood->generateFood(playerPosList);
+    }
+    else
+    {
+        playerPosList->removeTail();         //removes the tail
+    }*/
+    
 
 }
 
+bool Player::checkFoodConsumption()
+{
+    bool flag = false;
+    objPos currHead; //holds positon of current head 
+    playerPosList->getHeadElement(currHead);
+    objPos foodlocation; //holds position of food location
+    mainFood->getFoodPos(foodlocation);
+
+    if (foodlocation.x == currHead.x && foodlocation.y == currHead.y)
+    {
+        flag = true; 
+    }
+    return flag;
+
+}
+
+void Player::increasePlayerLength()
+{
+    objPos currHead; //holds positon of current head 
+    playerPosList->getHeadElement(currHead);
+    playerPosList->insertHead(currHead);
+}
