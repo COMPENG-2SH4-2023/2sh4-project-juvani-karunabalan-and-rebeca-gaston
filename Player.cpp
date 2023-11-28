@@ -15,11 +15,7 @@ Player::Player(GameMechs* thisGMRef, Food* thisFoodRef)
     playerPosList = new objPosArrayList();
     playerPosList->insertHead(tempPos);
     
-    //debugging purpose insert head 4 more imes
-    //playerPosList->insertHead(tempPos);
-    //playerPosList->insertHead(tempPos);
-    //playerPosList->insertHead(tempPos);
-    //playerPosList->insertHead(tempPos);
+    
     // more actions to be included
 }
 
@@ -179,14 +175,6 @@ void Player::movePlayer()
         }
     }
 
-    /*if (foodlocation.x == currHead.x && foodlocation.y == currHead.y)
-    { 
-        mainFood->generateFood(playerPosList);
-    }
-    else
-    {
-        playerPosList->removeTail();         //removes the tail
-    }*/
     
 
 }

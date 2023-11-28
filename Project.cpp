@@ -95,22 +95,7 @@ void RunLogic(void)
     if (myGM->getInput() == 27){    //setting exit key to escape
         myGM->setExitTrue();
     }   
-    /*
-    else if (myGM->getInput() == 'x'){  //setting lose key (debug)
-        myGM->setLoseFlag();
-    }
     
-    else if (myGM->getInput() == 'q'){   // setting score key (debug)
-        myGM->incrementScore();
-    } 
-    */
-    /*
-    else if (myGM->getInput() == 'f'){   // setting generate food key (debug)
-
-       // myFood->generateFood(playerPosCheck);
-    } 
-
-    */
 
     myGM->clearInput();
 
