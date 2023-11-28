@@ -78,6 +78,30 @@ void Player::updatePlayerDir()
             
 }
 
+bool Player::checkFoodConsumption()
+{
+    bool flag = false;
+    objPos currHead; //holds positon of current head 
+    playerPosList->getHeadElement(currHead);
+    objPos foodlocation; //holds position of food location
+    mainFood->getFoodPos(foodlocation);
+
+    if (foodlocation.x == currHead.x && foodlocation.y == currHead.y)
+    {
+        flag = true; 
+    }
+    return flag;
+
+}
+
+
+void Player::increasePlayerLength()
+{
+    objPos currHead; //holds positon of current head 
+    playerPosList->getHeadElement(currHead);
+    playerPosList->insertHead(currHead);
+}
+
 void Player::movePlayer()
 {
     objPos currHead; //holds positon of current head 
@@ -144,7 +168,7 @@ void Player::movePlayer()
     if (mainGameMechsRef->getExitFlagStatus() == false)
     {
         playerPosList->insertHead(currHead); //inserts head only
-        if (foodlocation.x == currHead.x && foodlocation.y == currHead.y)
+        if (checkFoodConsumption())         //IMPLEMENTED THE CHECKFOODCONSUMPTION FUNCTION
         { 
             mainFood->generateFood(playerPosList);
             mainGameMechsRef->incrementScore();
@@ -167,25 +191,4 @@ void Player::movePlayer()
 
 }
 
-bool Player::checkFoodConsumption()
-{
-    bool flag = false;
-    objPos currHead; //holds positon of current head 
-    playerPosList->getHeadElement(currHead);
-    objPos foodlocation; //holds position of food location
-    mainFood->getFoodPos(foodlocation);
 
-    if (foodlocation.x == currHead.x && foodlocation.y == currHead.y)
-    {
-        flag = true; 
-    }
-    return flag;
-
-}
-
-void Player::increasePlayerLength()
-{
-    objPos currHead; //holds positon of current head 
-    playerPosList->getHeadElement(currHead);
-    playerPosList->insertHead(currHead);
-}

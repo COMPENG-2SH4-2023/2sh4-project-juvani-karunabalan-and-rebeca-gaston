@@ -95,20 +95,22 @@ void RunLogic(void)
     if (myGM->getInput() == 27){    //setting exit key to escape
         myGM->setExitTrue();
     }   
-
+    /*
     else if (myGM->getInput() == 'x'){  //setting lose key (debug)
         myGM->setLoseFlag();
     }
-
+    
     else if (myGM->getInput() == 'q'){   // setting score key (debug)
         myGM->incrementScore();
     } 
-
+    */
+    /*
     else if (myGM->getInput() == 'f'){   // setting generate food key (debug)
 
        // myFood->generateFood(playerPosCheck);
     } 
 
+    */
 
     myGM->clearInput();
 
@@ -202,7 +204,7 @@ void CleanUp(void)
     MacUILib_clearScreen();  
 
     if (myGM->getLoseFlagStatus()){
-        MacUILib_printf("You lost womp womp (T-T)\n");
+        MacUILib_printf("You died womp womp (T-T)\n\nSlay though you ate %d O's ;)\n", myGM->getScore());
     }
 
     else{
