@@ -23,8 +23,9 @@ class Player
         objPosArrayList* getPlayerPos(); // Upgrade this in iteration 3.
         void updatePlayerDir();
         void movePlayer();
-        bool checkFoodConsumption();
-        void increasePlayerLength();
+        bool checkFoodConsumption(objPos head);
+        void increasePlayerLength(objPos head);
+        bool checkSelfCollision(objPos head);
         //need more actions in here:
         //after inserting the head and before removing the tail 
         // -- check if the new head position collides with the food 
