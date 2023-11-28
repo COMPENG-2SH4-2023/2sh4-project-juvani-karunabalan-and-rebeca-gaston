@@ -14,10 +14,10 @@ Player::Player(GameMechs* thisGMRef)
     playerPosList->insertHead(tempPos);
     
     //debugging purpose insert head 4 more imes
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
+    //playerPosList->insertHead(tempPos);
+    //playerPosList->insertHead(tempPos);
+    //playerPosList->insertHead(tempPos);
+    //playerPosList->insertHead(tempPos);
     // more actions to be included
 }
 

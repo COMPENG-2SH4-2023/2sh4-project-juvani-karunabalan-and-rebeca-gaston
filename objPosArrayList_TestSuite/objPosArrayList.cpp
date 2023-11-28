@@ -57,8 +57,7 @@ void objPosArrayList::removeHead()
         {
             aList[i].setObjPos(aList[i+1]);  
         }
-        //decremnt the size of list and delete/set last data bit to null
-        aList[sizeList-1].setObjPos(0,0,0);
+        //decremnt the size of list
         sizeList--;
     }
     
@@ -69,8 +68,6 @@ void objPosArrayList::removeTail()
 {
     if (sizeList > 0) //make sure theres at least 1 element in the list to remove
     {
-        //delete data 
-        aList[sizeList-1].setObjPos(0,0,0);
         //decremnt the size of list
         sizeList--;
     }
