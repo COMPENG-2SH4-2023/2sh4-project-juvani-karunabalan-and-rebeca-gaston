@@ -74,15 +74,13 @@ void Player::updatePlayerDir()
             
 }
 
-bool Player::checkFoodConsumption()
+bool Player::checkFoodConsumption(objPos head)
 {
     bool flag = false;
-    objPos currHead; //holds positon of current head 
-    playerPosList->getHeadElement(currHead);
     objPos foodlocation; //holds position of food location
     mainFood->getFoodPos(foodlocation);
 
-    if (foodlocation.x == currHead.x && foodlocation.y == currHead.y)
+    if (foodlocation.x == head.x && foodlocation.y == head.y)
     {
         flag = true; 
     }
@@ -91,17 +89,33 @@ bool Player::checkFoodConsumption()
 }
 
 
-void Player::increasePlayerLength()
+void Player::increasePlayerLength(objPos head)
 {
-    objPos currHead; //holds positon of current head 
-    playerPosList->getHeadElement(currHead);
-    playerPosList->insertHead(currHead);
+    playerPosList->insertHead(head);   //inserts head 
+}
+
+bool Player::checkSelfCollision(objPos head)
+{
+    bool flag = false;
+    objPos temp;      //holds temporary position of elemenst in playerPosList
+
+    for (int i = 0; i < playerPosList->getSize() && mainGameMechsRef->getScore() != 0; i++)
+    {
+        playerPosList->getElement(temp, i);
+        if (head.isPosEqual(&temp))
+        {
+            mainGameMechsRef->setLoseFlag();
+            mainGameMechsRef->setExitTrue();
+            flag = true;
+        }
+        
+    }
+    return flag;
 }
 
 void Player::movePlayer()
 {
     objPos currHead; //holds positon of current head 
-    objPos temp;     //holds temporary position of elemenst in playerPosList
     playerPosList->getHeadElement(currHead);
     objPos foodlocation; //holds position of food location
 
@@ -148,23 +162,12 @@ void Player::movePlayer()
             break;
     }
 
-    mainFood->getFoodPos(foodlocation);
-    //playerPosList->insertHead(currHead); //inserts head only 
-
-    for (int i = 0; i < playerPosList->getSize() && mainGameMechsRef->getScore() != 0; i++)
+    //mainFood->getFoodPos(foodlocation);
+    
+    if (checkSelfCollision(currHead) == false)
     {
-        playerPosList->getElement(temp, i);
-        if (currHead.isPosEqual(&temp))
-        {
-            mainGameMechsRef->setLoseFlag();
-            mainGameMechsRef->setExitTrue();
-        }
-        
-    }
-    if (mainGameMechsRef->getExitFlagStatus() == false)
-    {
-        playerPosList->insertHead(currHead); //inserts head only
-        if (checkFoodConsumption())         //IMPLEMENTED THE CHECKFOODCONSUMPTION FUNCTION
+        increasePlayerLength(currHead);     //inserts head only 
+        if (checkFoodConsumption(currHead))         //IMPLEMENTED THE CHECKFOODCONSUMPTION FUNCTION
         { 
             mainFood->generateFood(playerPosList);
             mainGameMechsRef->incrementScore();
