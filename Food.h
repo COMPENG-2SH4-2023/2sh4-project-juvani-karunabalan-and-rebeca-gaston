@@ -10,7 +10,7 @@ class Food
     private:
         objPos foodPos;
         GameMechs* mainGMrefFood;
-        //objPosArrayList* PosList;
+        objPosArrayList* foodBucket;
 
     public:
         Food(GameMechs* foodGM);
