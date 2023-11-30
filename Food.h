@@ -5,21 +5,21 @@
 #include "GameMechs.h"
 #include "objPosArrayList.h"
 
-class Food
+class Food: public objPosArrayList
 {
     private:
-        objPos foodPos;
+        int bucketSize = 5;
         GameMechs* mainGMrefFood;
         objPosArrayList* foodBucket;
+        
 
     public:
-        Food(GameMechs* foodGM);
+        Food(GameMechs* foodGM, objPosArrayList* foods);
         ~Food();
 
-        void generateFood(objPosArrayList* objList);   //You need to upgrade this somehow...
-        //you need to accept player body array list element to amke sure they are all
-        //lined up with random food generation 
-        void getFoodPos(objPos &returnPos);
+        void generateFood(objPosArrayList* objList);    
+        void getFoodPos(objPosArrayList &returnPos);
+        int getBucketSize();
 };
 
 #endif

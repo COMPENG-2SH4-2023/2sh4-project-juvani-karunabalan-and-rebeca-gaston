@@ -5,7 +5,7 @@
 
 #include "objPos.h"
 
-class objPosArrayList
+class objPosArrayList: public objPos
 {
     private:
         objPos* aList;

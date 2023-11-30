@@ -12,23 +12,19 @@ Player::Player(GameMechs* thisGMRef, Food* thisFoodRef)
     objPos tempPos;
     tempPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2,mainGameMechsRef->getBoardSizeY()/2,'*'); //sets inital position
     
-    playerPosList = new objPosArrayList();
-    playerPosList->insertHead(tempPos);
+    playerPosList = new objPosArrayList();  
+    playerPosList->insertHead(tempPos);    //sets the first head 
     
-    
-    // more actions to be included
 }
 
 
 Player::~Player()
 {
-    // delete any heap members here
     delete playerPosList;
 }
 
 objPosArrayList* Player::getPlayerPos()
 {
-    // return the reference to the playerPos arrray list
     return playerPosList;
 }
 
@@ -74,16 +70,23 @@ void Player::updatePlayerDir()
             
 }
 
-bool Player::checkFoodConsumption(objPos head)
+bool Player::checkFoodConsumption(objPos &head, objPos &cfood)
 {
     bool flag = false;
-    objPos foodlocation; //holds position of food location
-    mainFood->getFoodPos(foodlocation);
+    objPosArrayList foodlocations; //holds position of food locations
+    objPos foodLoc;                 //holds position of a single food object
+    mainFood->getFoodPos(foodlocations); //geting the info of generated food on gameboard  
 
-    if (foodlocation.x == head.x && foodlocation.y == head.y)
+    for(int i = 0; i < foodlocations.getSize(); i++)  //loop for checking if the head of snake collides with a food item
     {
-        flag = true; 
+        foodlocations.getElement(foodLoc, i);
+        if (foodLoc.x == head.x && foodLoc.y == head.y)     //checks collison 
+        {
+            flag = true; 
+            cfood.symbol = foodLoc.symbol;   //appends the correct food symbol 
+        }
     }
+    
     return flag;
 
 }
@@ -97,12 +100,12 @@ void Player::increasePlayerLength(objPos head)
 bool Player::checkSelfCollision(objPos head)
 {
     bool flag = false;
-    objPos temp;      //holds temporary position of elemenst in playerPosList
+    objPos temp;      //holds temporary position of elements in playerPosList
 
-    for (int i = 0; i < playerPosList->getSize() && mainGameMechsRef->getScore() != 0; i++)
+    for (int i = 0; i < playerPosList->getSize() && mainGameMechsRef->getScore() != 0; i++)   //loops through snake body elements to check if collison
     {
         playerPosList->getElement(temp, i);
-        if (head.isPosEqual(&temp))
+        if (head.isPosEqual(&temp))           //collision condition to exit game 
         {
             mainGameMechsRef->setLoseFlag();
             mainGameMechsRef->setExitTrue();
@@ -115,9 +118,9 @@ bool Player::checkSelfCollision(objPos head)
 
 void Player::movePlayer()
 {
-    objPos currHead; //holds positon of current head 
+    objPos currHead; //holds current head info
     playerPosList->getHeadElement(currHead);
-    objPos foodlocation; //holds position of food location
+    objPos cfood; //holds colllied food info 
 
     //collects the boundary values of the game board
     int xbound = (mainGameMechsRef->getBoardSizeX()-2);
@@ -162,15 +165,28 @@ void Player::movePlayer()
             break;
     }
 
-    //mainFood->getFoodPos(foodlocation);
     
     if (checkSelfCollision(currHead) == false)
     {
         increasePlayerLength(currHead);     //inserts head only 
-        if (checkFoodConsumption(currHead))         //IMPLEMENTED THE CHECKFOODCONSUMPTION FUNCTION
-        { 
-            mainFood->generateFood(playerPosList);
-            mainGameMechsRef->incrementScore();
+        if (checkFoodConsumption(currHead, cfood))         //checks food consumption 
+        {  
+            if (cfood.symbol == '+')                       //condition for bonus spicy nacho  
+            {
+                mainGameMechsRef->incrementScoreBonus1();  //increases score by 5
+        
+            }
+            else if (cfood.symbol == '$')                  //condition for bonus energy drink 
+            { 
+                mainGameMechsRef->incrementScoreBonus2();  //increases score by 10
+                playerPosList->insertTail(currHead);       //increments the length of snake by 2 instead of 1              
+                
+            }
+            else 
+            {
+                mainGameMechsRef->incrementScore();         //default increase score by 1
+            }
+            mainFood->generateFood(playerPosList);         //generates new food
         }
         else
         {

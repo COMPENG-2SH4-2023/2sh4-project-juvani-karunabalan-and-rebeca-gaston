@@ -5,9 +5,9 @@ GameMechs::GameMechs()
 {
     input = 0;
     exitFlag = false;
-    loseFlag = false;   //added it 1b
-    score = 0;          //added it 1b
-    boardSizeX = 20;    //1b on doc recommmended 30 and 15 but vid did this
+    loseFlag = false;   
+    score = 0;          
+    boardSizeX = 20;    
     boardSizeY = 10;
 }
 
@@ -15,14 +15,13 @@ GameMechs::GameMechs(int boardX, int boardY)
 {
     input = 0;
     exitFlag = false;
-    loseFlag = false;   //added it 1b
-    score = 0;          //added it 1b
+    loseFlag = false;   
+    score = 0;          
     boardSizeX = boardX; 
     boardSizeY = boardY;
 }
 
-// do you need a destructor?
-//not yet, havent accessed heap yet
+
 
 GameMechs::~GameMechs(){
 
@@ -59,7 +58,7 @@ int GameMechs::getBoardSizeY()
     return boardSizeY;
 }
 
-// added since it was in UML
+
 int GameMechs::getScore()
 {
     return score;
@@ -71,7 +70,7 @@ void GameMechs::setExitTrue()
     exitFlag = true;
 }
 
-//added
+
 void GameMechs::setLoseFlag()
 {
     loseFlag = true;
@@ -91,4 +90,12 @@ void GameMechs::incrementScore(){
     score++;
 }
 
+void GameMechs::incrementScoreBonus1()
+{
+    score += 5;
+}
 
+void GameMechs::incrementScoreBonus2()
+{
+    score += 10;
+}

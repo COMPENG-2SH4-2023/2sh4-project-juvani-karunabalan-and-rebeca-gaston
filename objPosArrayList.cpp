@@ -1,8 +1,5 @@
 #include "objPosArrayList.h"
 
-// Check lecture contents on general purpose array list construction, 
-// and modify it to support objPos array list construction.
-
 objPosArrayList::objPosArrayList()
 {
     aList = new objPos[ARRAY_MAX_CAP]; //creates 200 elements 
@@ -43,7 +40,7 @@ void objPosArrayList::insertTail(objPos thisPos)
     {
         //fills the tail spot with the new element
         aList[sizeList].setObjPos(thisPos);
-        //incremnt the size of list
+        //increment the size of list
         sizeList++;
     }
 }
@@ -52,12 +49,12 @@ void objPosArrayList::removeHead()
 {
     if (sizeList > 0) //make sure theres at least 1 element in the list to remove
     {
-        //shifts alll elements towards the head to remove a spot at the head
+        //shifts all elements towards the head to remove a spot at the head
         for (int i = 0; i < sizeList; i++)
         {
             aList[i].setObjPos(aList[i+1]);  
         }
-        //decremnt the size of list
+        //decrement the size of list
         sizeList--;
     }
     
@@ -89,3 +86,4 @@ void objPosArrayList::getElement(objPos &returnPos, int index)
 {
     returnPos.setObjPos(aList[index]);
 }
+

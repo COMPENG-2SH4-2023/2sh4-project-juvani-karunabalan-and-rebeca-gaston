@@ -1,7 +1,7 @@
 #ifndef GAMEMECHS_H
 #define GAMEMECHS_H
 
-#include <cstdlib>  //provides srand() and rand()
+#include <cstdlib>  
 #include <time.h>
 
 #include "objPos.h"
@@ -12,17 +12,11 @@ using namespace std;
 
 class GameMechs
 {
-    // Construct the remaining declaration from the project manual.
-
-    // Only some sample members are included here
-
-    // You will include more data members and member functions to complete your design.
-
     private:
         char input;
         bool exitFlag;
-        bool loseFlag; //left out, was in UML
-        int score;  //left out, was in UML
+        bool loseFlag; 
+        int score;  
         
         int boardSizeX;
         int boardSizeY;
@@ -33,7 +27,7 @@ class GameMechs
         ~GameMechs();
 
         bool getExitFlagStatus();
-        bool getLoseFlagStatus(); //implemented
+        bool getLoseFlagStatus(); 
 
         char getInput();
         int getBoardSizeX();
@@ -41,12 +35,14 @@ class GameMechs
         int getScore();
 
         void setExitTrue();
-        void setLoseFlag(); //added
+        void setLoseFlag(); 
 
         void setInput(char this_input);
         void clearInput();
 
         void incrementScore();
+        void incrementScoreBonus1();
+        void incrementScoreBonus2();
       
 
 };
